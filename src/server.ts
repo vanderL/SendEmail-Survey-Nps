@@ -1,11 +1,11 @@
-import express, { response } from 'express'
+import 'reflect-metadata'
+import express from 'express'
+import './database'
+import { router } from './router'
 
 const app = express()
 
-app.get('/users', (req, res) => {
-    return res.json({message: "Hello World Boy!"})
-})
-
-
+app.use(express.json())
+app.use(router)
 
 app.listen(3333, () => console.log('running! port 3000'))

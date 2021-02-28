@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { json, Request, Response } from 'express'
 import { getCustomRepository } from 'typeorm'
 import { UsersRepository } from '../mappings/UsersRepository'
 
@@ -22,7 +22,7 @@ class UserController {
 
         await usersRepository.save(user)
         
-        return res.json(user)
+        return res.status(201).json(user)
     }
 }
 

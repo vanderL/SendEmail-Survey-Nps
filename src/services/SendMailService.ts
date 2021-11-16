@@ -1,7 +1,6 @@
-import nodemailer, { Transporter } from 'nodemailer'
-import hbs from 'handlebars'
-import fs from 'fs'
-
+import nodemailer, { Transporter } from 'nodemailer';
+import hbs from 'handlebars';
+import fs from 'fs';
 
 class SendMailService {
     private client: Transporter
@@ -23,17 +22,17 @@ class SendMailService {
     }
 
     async execute(to: string, subject: string, variables: object, path: string) {
-        const templateFileContent = fs.readFileSync(path).toString("utf8")
+        const templateFileContent = fs.readFileSync(path).toString("utf8");
 
-        const mailTemplateParse = hbs.compile(templateFileContent)
-        const html = mailTemplateParse(variables)
+        const mailTemplateParse = hbs.compile(templateFileContent);
+        const html = mailTemplateParse(variables);
 
         const message = await this.client.sendMail({
             to,
             subject,
             html,
             from: "NPS <noreplay@fortegps.com.br>"
-        })
+        });
 
         console.log('Message sent: %s', message.messageId);
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
